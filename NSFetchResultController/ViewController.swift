@@ -5,6 +5,7 @@
 //  Created by Даша Волошина on 6.12.22.
 //
 //Разобраться с NSFetchResultController. Для этого создадим приложение, один раз положим в CoreData 10 User(name:String, surname: String, birthday: Date). Отобразим в TableView этих 10 юзеров (поля имя фамилия и день рождения) в ячейках используя NSfetchResultController. Также при смахивании ячейки в TableView удаляем соответствующего юзера из CoreData
+
 import UIKit
 import SnapKit
 import CoreData
@@ -59,28 +60,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @objc func buttonTap (_ sender:UIButton){
         
         let vc = UIAlertController(title: "User", message: "create User", preferredStyle: .alert)
-        
-//        vc.addTextField{ textField in
-//            self.userObject.createUser(textField.text!)
-//        }
-     
-        let action = UIAlertAction(title: "Create", style: .default)
-//        let action = UIAlertAction(title: "Create", style: .default, handler: { textField in
-            vc.addTextField{ textField in
-        
-                self.userObject.createUser(name: textField.text!)
+
+        let action = UIAlertAction(title: "Create", style: .default, handler: { action in
+    
+            self.userObject.createUser(name: (vc.textFields?[0].text)!, surName: (vc.textFields?[1].text)!)
                 self.userObject.updateUser()
-                    }
-//        })
-            
+    })
+        vc.addTextField{ _ in }
+        vc.addTextField()
         
         vc.addAction(action)
         present(vc,animated:true)
         
 }
-    
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let sections = fetchVC?.sections else{
             return 0
@@ -94,7 +87,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
     
         cell.labelName.text = fetchVC.object(at: indexPath).name
-//        cell.labelSurName.text =  fetchVC.object(at: indexPath).surName
+        cell.labelSurName.text =  fetchVC.object(at: indexPath).surName
         cell.labelBirthday.text = String(describing: fetchVC.object(at: indexPath).birthday)
      
         return cell

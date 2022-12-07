@@ -32,11 +32,11 @@ class UserCoreData {
         }
     }
     
-    func createUser(name: String) {
+    func createUser(name: String, surName:String) {
         let user = User(context: persistentContainer.viewContext)
         user.name = name
         user.birthday = Date()
-//        user.surName = surName
+        user.surName = surName
         do {
             try persistentContainer.viewContext.save()
         } catch {

@@ -34,7 +34,7 @@ class TableViewCell: UITableViewCell {
             make.top.equalToSuperview().inset(10)
         }
         labelBirthday.snp.makeConstraints { make in
-            make.width.equalTo(200)
+            make.width.equalTo(400)
             make.height.equalTo(30)
             make.left.equalToSuperview().inset(20)
             make.top.equalToSuperview().inset(60)
